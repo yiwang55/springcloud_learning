@@ -13,7 +13,8 @@ import java.util.List;
 @RestController
 public class DeptController_Consumer {
 
-    private static final String REST_URL_PREFIX = "http://localhost:8001";
+//    private static final String REST_URL_PREFIX = "http://localhost:8001";
+    private static final String REST_URL_PREFIX = "http://MICROSERVICECLOUD-DEPT";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -34,5 +35,11 @@ public class DeptController_Consumer {
     public List<Dept> list(){
         List depts = restTemplate.getForObject(REST_URL_PREFIX + "/dept/list", List.class);
         return depts;
+    }
+
+    @RequestMapping(value = "/consumer/dept/discovery", method = RequestMethod.GET)
+    public Object discovery(){
+        Object o = restTemplate.getForObject(REST_URL_PREFIX + "/dept/discovery", Object.class);
+        return o;
     }
 }
