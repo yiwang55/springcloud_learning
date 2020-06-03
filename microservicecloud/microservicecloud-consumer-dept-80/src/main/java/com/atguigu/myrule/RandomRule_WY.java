@@ -10,6 +10,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomRule_WY extends AbstractLoadBalancerRule {
 
+    private int totalCount = 0;
+    private int currentIndex = 0;
+
     public Server choose(ILoadBalancer lb, Object key) {
         if (lb == null) {
             return null;
@@ -33,7 +36,19 @@ public class RandomRule_WY extends AbstractLoadBalancerRule {
             }
 
             int index = chooseRandomInt(serverCount);
-            server = upList.get(index);
+
+            if (totalCount < 5) {
+                server = upList.get(currentIndex);
+                totalCount++;
+            } else {
+                totalCount = 0;
+                currentIndex++;
+                if (currentIndex >= upList.size()){
+                    currentIndex=0;
+                }
+                server = upList.get(currentIndex);
+            }
+//            server = upList.get(index);
 
             if (server == null) {
                 /*
