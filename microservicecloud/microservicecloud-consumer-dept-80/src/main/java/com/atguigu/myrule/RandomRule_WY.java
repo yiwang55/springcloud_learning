@@ -46,7 +46,6 @@ public class RandomRule_WY extends AbstractLoadBalancerRule {
                 if (currentIndex >= upList.size()){
                     currentIndex=0;
                 }
-                server = upList.get(currentIndex);
             }
 //            server = upList.get(index);
 
